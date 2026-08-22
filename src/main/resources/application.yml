@@ -1,0 +1,71 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: tpl-app-api
+  profiles:
+    active: dev
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: org.fellow99.tpl.appapi.entity
+  global-config:
+    db-config:
+      id-type: AUTO
+      logic-delete-field: delFlag
+      logic-delete-value: "1"
+      logic-not-delete-value: "0"
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+sa-token:
+  token-name: Authorization
+  timeout: 2592000
+  active-timeout: -1
+  is-concurrent: true
+  is-share: true
+  is-log: true
+  # JWT 签名密钥（生产环境必须通过环境变量 SA_TOKEN_JWT_SECRET 注入强随机密钥，禁止硬编码默认值）
+  jwt-secret-key: ${SA_TOKEN_JWT_SECRET:}
+
+captcha:
+  enable: true
+  char-length: 4
+
+sms:
+  base-url: ${SMS_BASE_URL:}
+  template-code: ${SMS_TEMPLATE_CODE:}
+  connect-timeout: 5000
+  read-timeout: 10000
+
+# 微信登录开关（编译/运行开关，默认启用；false 时不注册 social/xcx 策略 Bean、不开放相关端点）
+wechat:
+  enabled: ${WECHAT_LOGIN_ENABLED:true}
+
+# 微信第三方登录配置（AppID/Secret 一律环境变量注入，禁止硬编码）
+justauth:
+  type:
+    wechat_open:          # 网站应用（web 扫码，scope=snsapi_login）
+      client-id: ${WECHAT_WEB_APPID:}
+      client-secret: ${WECHAT_WEB_SECRET:}
+      redirect-uri: ${WECHAT_WEB_REDIRECT_URI:}
+    wechat_app:           # 移动应用（android/harmony 拉起，scope=snsapi_userinfo）
+      client-id: ${WECHAT_APP_APPID:}
+      client-secret: ${WECHAT_APP_SECRET:}
+      redirect-uri: ''    # 移动端无回调，置空
+    wechat_xcx:           # 小程序（jscode2session）
+      client-id: ${WECHAT_XCX_APPID:}
+      client-secret: ${WECHAT_XCX_SECRET:}
+
+# AES+RSA 混合加密：请求解密配置
+# 私钥禁止硬编码，必须通过环境变量 RSA_PRIVATE_KEY 注入
+api-decrypt:
+  enabled: true
+  header-flag: encrypt-key
+  private-key: ${RSA_PRIVATE_KEY:}
