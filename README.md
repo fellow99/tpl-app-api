@@ -6,7 +6,7 @@
 [![JDK](https://img.shields.io/badge/JDK-21-orange)]()
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?logo=postgresql)](./)
 [![Redis](https://img.shields.io/badge/Redis-7.x-DC382D?logo=redis)](./)
-[![License](https://img.shields.io/badge/license-Proprietary-red)](./)
+[![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 ---
 
@@ -311,3 +311,9 @@ tpl-app-api/
 - [MyBatis-Plus 文档](https://baomidou.com)
 - [RuoYi-Vue-Plus 文档](https://plus-doc.dromara.org)
 - [PostgreSQL 文档](https://www.postgresql.org/docs/)
+
+---
+
+## License
+
+本项目基于 [MIT License](./LICENSE) 开源。
